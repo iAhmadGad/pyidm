@@ -1,13 +1,13 @@
 from urllib.request import urlopen
-from urllib.parse import urlparse
-from size_calculator import calculateSize
+import filename, filesize, fileextension
 
-def getInfo(url):
+def getFullInfo(url):
     return urlopen(url).info().getheaders()
 
-def getName(url):
-    splittedPath =  urlparse(url).path.split("/")
-    return splittedPath[len(splittedPath) - 1]
-                        
-def getSize(url):
-    return calculateSize(int(urlopen(url).info()["Content-Length"]))
+def getInfo(url, request):
+    if request == 'n':
+        return filename.getName(url)
+    elif request == 's':
+        return filesize.getSize(url)
+    elif request == 'e':
+        return fileextension.getExtension(url)
