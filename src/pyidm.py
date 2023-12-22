@@ -1,24 +1,24 @@
-import sys
-from urllib.request import urlretrieve
-import fileinfo
-import size_calculator
+import sys, fileinfo, downloader, configurator
+
+SYNTAX ="pyidm syntax:\npyidm download <url> <filename>\npyidm download <url>\npyidm info <url> <requested-info>\npydim config <key> <value>"
 
 args = sys.argv
+
 if args[1] == "download" and (len(args) == 3 or len(args) == 4):
-   url = args[2]
-   filename = ""
-
    if len(args) == 3:
-      filename = fileinfo.getName(url)
+      downloader.download(args[2], fileinfo.getInfo(args[2], 'n'))
    else:
-      filename = args[3]
+      downloader.download(args[2], args[3])
+
+elif args[1] == "info" and len(args) == 4:
+   for i in range(len(args[3])):
+      print(fileinfo.getInfo(args[2], args[3][i]))
       
-   path, headers = urlretrieve(url, filename)
-
-   print(filename, "(", size_calculator.calculateSize(int(headers["Content-Length"])), ")", " succesfuly downloaded!")
-
-elif args[1] == "size" and len(args) == 3:
-   print(fileinfo.getSize(args[2]))
-
+elif args[1] == "config" and len(args) == 4:
+   configure(args[2], args[3])
+   
+elif args[1] == "help" and len(args) == 2:
+   print(SYNTAX)
+   
 else:
-   print("invalid arguments\nvalid syntax:\npyidm download <url> <filename>\npyidm download <url>\npyidm size <url>")
+   print("invalid arguments", SYNTAX)
