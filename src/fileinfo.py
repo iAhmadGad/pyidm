@@ -10,4 +10,4 @@ def getName(url):
     return splittedPath[len(splittedPath) - 1]
                         
 def getSize(url):
-    return calculateSize(int(urlopen(url).info().getheaders("Content-Length")[0]))
+    return calculateSize(int(urlopen(url).info()["Content-Length"]))
