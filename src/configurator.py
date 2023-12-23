@@ -5,7 +5,7 @@ def getConfigurations():
     return json.loads(configfile)
 
 def getConfiguration(key):
-    return getConfigurations()[key]
+    return getConfigurations().get(key)
 
 def configure(key, value):
     

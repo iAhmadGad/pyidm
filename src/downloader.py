@@ -4,4 +4,4 @@ import filesize
 def download(url, filepath):
     path, headers = urlretrieve(url, filepath)
 
-    print(filepath, "(", filesize.calculateSize(int(headers["Content-Length"])), ")", " succesfuly downloaded!")
+    print(filepath, "(", filesize.calculateSize(int(headers.get("Content-Length"))), ")", " succesfuly downloaded!")
